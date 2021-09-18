@@ -1,8 +1,8 @@
 package com.harris.mygroceryshop.utils
 
 import com.harris.mygroceryshop.domain.State
-import com.harris.mygroceryshop.domain.exception.AuthenticationException
-import com.harris.mygroceryshop.domain.exception.NetworkErrorException
+import com.harris.mygroceryshop.data.exception.AuthenticationException
+import com.harris.mygroceryshop.data.exception.NetworkErrorException
 import retrofit2.HttpException
 import timber.log.Timber
 import java.net.ConnectException

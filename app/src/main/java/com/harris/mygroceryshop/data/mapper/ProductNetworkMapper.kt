@@ -1,4 +1,4 @@
-package com.harris.mygroceryshop.domain.mapper
+package com.harris.mygroceryshop.data.mapper
 
 import com.harris.mygroceryshop.data.remote.model.RemoteProduct
 import com.harris.mygroceryshop.domain.model.Product

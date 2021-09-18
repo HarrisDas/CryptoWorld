@@ -4,5 +4,5 @@ import com.harris.mygroceryshop.domain.model.Product
 
 interface IProductRepository {
 
-    fun getAllProducts(): List<Product>
+//    fun getAllProducts(): List<Product>
 }

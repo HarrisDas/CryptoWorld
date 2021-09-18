@@ -1,4 +1,4 @@
-package com.harris.mygroceryshop.domain.exception
+package com.harris.mygroceryshop.data.exception
 
 import org.json.JSONObject
 import retrofit2.HttpException

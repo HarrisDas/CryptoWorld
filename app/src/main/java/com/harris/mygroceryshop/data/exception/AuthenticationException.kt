@@ -1,4 +1,4 @@
-package com.harris.mygroceryshop.domain.exception
+package com.harris.mygroceryshop.data.exception
 
 class AuthenticationException(authMessage: String) :
     NetworkErrorException(errorMessage = authMessage) {}
