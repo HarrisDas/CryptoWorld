@@ -1,7 +1,7 @@
 package com.harris.cryptoworld.di
 
 import com.google.gson.Gson
-import com.harris.cryptoworld.data.service.ProductApiService
+import com.harris.cryptoworld.data.service.CryptoApiService
 import com.harris.cryptoworld.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -51,9 +51,9 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit.Builder): ProductApiService {
+    fun provideApiService(retrofit: Retrofit.Builder): CryptoApiService {
         return retrofit
             .build()
-            .create(ProductApiService::class.java)
+            .create(CryptoApiService::class.java)
     }
 }
