@@ -1,6 +1,6 @@
 package com.harris.cryptoworld.utils
 
-import com.harris.cryptoworld.domain.State
+import com.harris.cryptoworld.domain.UIState
 import com.harris.cryptoworld.data.exception.AuthenticationException
 import com.harris.cryptoworld.data.exception.NetworkErrorException
 import retrofit2.HttpException
@@ -10,7 +10,7 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 object Utils {
-    fun resolveError(e: Exception): State.ErrorState {
+    fun resolveError(e: Exception): UIState.ErrorState {
         Timber.e("request failed due to $e")
         var error = e
 
@@ -40,6 +40,6 @@ object Utils {
             }
         }
 
-        return State.ErrorState(error)
+        return UIState.ErrorState(error)
     }
 }

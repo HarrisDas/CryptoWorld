@@ -1,6 +1,8 @@
 package com.harris.cryptoworld.domain.repository
 
+import com.harris.cryptoworld.domain.model.Crypto
+
 interface ICryptoRepository {
 
-//    fun getAllCrypto(): List<Crypto>
+    suspend fun getAllCrypto(): List<Crypto>
 }

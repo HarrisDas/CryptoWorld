@@ -16,8 +16,8 @@ constructor() : PojoMapper<RemoteCrypto, Crypto> {
         )
     }
 
-    override fun mapFromEntityList(entities: List<RemoteCrypto>): List<Crypto> {
-        return entities.map { mapFromEntity(it) }
+    override fun mapFromEntityList(entities: List<RemoteCrypto>?): List<Crypto> {
+        return entities?.map { mapFromEntity(it) } ?: emptyList()
     }
 }
 
