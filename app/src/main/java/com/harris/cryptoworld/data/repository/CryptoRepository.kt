@@ -10,4 +10,6 @@ class CryptoRepository @Inject constructor(
     ICryptoRepository {
     override suspend fun getAllCrypto() = dataSource.getAllCrypto()
 
+    override suspend fun convertCrypto(from: String, to: String, amount: Double) =
+        dataSource.convertCrypto(from, to, amount)
 }

@@ -1,4 +1,4 @@
-package com.harris.cryptoworld.domain
+package com.harris.cryptoworld.ui
 
 /**
  * A State class which will represent the state of UI

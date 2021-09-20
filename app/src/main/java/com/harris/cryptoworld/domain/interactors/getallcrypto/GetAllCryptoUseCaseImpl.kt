@@ -1,4 +1,4 @@
-package com.harris.cryptoworld.domain.interactors
+package com.harris.cryptoworld.domain.interactors.getallcrypto
 
 import android.accounts.NetworkErrorException
 import com.harris.cryptoworld.domain.model.Crypto

@@ -1,6 +1,6 @@
 package com.harris.cryptoworld.utils
 
-import com.harris.cryptoworld.domain.UIState
+import com.harris.cryptoworld.ui.UIState
 import com.harris.cryptoworld.data.exception.AuthenticationException
 import com.harris.cryptoworld.data.exception.NetworkErrorException
 import retrofit2.HttpException

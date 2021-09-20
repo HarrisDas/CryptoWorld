@@ -8,4 +8,8 @@ class CryptoDataSource @Inject constructor(private val apiService: CryptoApiServ
     suspend fun getAllCrypto() = getResult {
         apiService.getAllCryptoCurrenciesAsync()
     }
+
+    suspend fun convertCrypto(from: String, to: String, amount: Double) = getResult {
+        apiService.convertCurrency(from, to, amount)
+    }
 }

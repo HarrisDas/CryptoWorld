@@ -4,9 +4,10 @@ import android.accounts.NetworkErrorException
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.harris.cryptoworld.domain.UIState
-import com.harris.cryptoworld.domain.interactors.GetAllCryptoUseCase
+import com.harris.cryptoworld.domain.interactors.convertcrypto.ConvertCryptoUseCase
+import com.harris.cryptoworld.domain.interactors.getallcrypto.GetAllCryptoUseCase
 import com.harris.cryptoworld.domain.model.Crypto
+import com.harris.cryptoworld.domain.model.CryptoConvert
 import com.harris.cryptoworld.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,9 +17,13 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class CryptoViewModel @Inject constructor(private val getAllCryptoUseCase: GetAllCryptoUseCase) :
+class CryptoViewModel @Inject constructor(
+    private val getAllCryptoUseCase: GetAllCryptoUseCase,
+    private val convertCryptoUseCase: ConvertCryptoUseCase
+) :
     ViewModel() {
-    val mliveData = MutableLiveData<UIState<List<Crypto>>>()
+    val cryptoList = MutableLiveData<UIState<List<Crypto>>>()
+    val cryptoConvert = MutableLiveData<UIState<CryptoConvert>>()
 
     init {
         getAllCrypto()
@@ -27,16 +32,41 @@ class CryptoViewModel @Inject constructor(private val getAllCryptoUseCase: GetAl
     private fun getAllCrypto() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                mliveData.postValue(UIState.LoadingState)
+                cryptoList.postValue(UIState.LoadingState)
                 try {
-                    mliveData.postValue(UIState.DataState(getAllCryptoUseCase()))
+                    cryptoList.postValue(UIState.DataState(getAllCryptoUseCase()))
                 } catch (e: NetworkErrorException) {
                     Timber.e(e)
-                    mliveData.postValue(Utils.resolveError(e))
+                    cryptoList.postValue(Utils.resolveError(e))
 
                 }
             }
 
         }
     }
+
+    private fun convertCrypto(from: String, to: String, amount: Double) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                cryptoConvert.postValue(UIState.LoadingState)
+                try {
+                    cryptoConvert.postValue(
+                        UIState.DataState(
+                            convertCryptoUseCase(
+                                from,
+                                to,
+                                amount
+                            )
+                        )
+                    )
+                } catch (e: NetworkErrorException) {
+                    Timber.e(e)
+                    cryptoConvert.postValue(Utils.resolveError(e))
+
+                }
+            }
+
+        }
+    }
+
 }

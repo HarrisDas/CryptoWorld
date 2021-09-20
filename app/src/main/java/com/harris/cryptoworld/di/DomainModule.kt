@@ -1,7 +1,9 @@
 package com.harris.cryptoworld.di
 
-import com.harris.cryptoworld.domain.interactors.GetAllCryptoUseCase
-import com.harris.cryptoworld.domain.interactors.GetAllCryptoUseCaseImpl
+import com.harris.cryptoworld.domain.interactors.convertcrypto.ConvertCryptoUseCase
+import com.harris.cryptoworld.domain.interactors.convertcrypto.ConvertCryptoUseCaseImpl
+import com.harris.cryptoworld.domain.interactors.getallcrypto.GetAllCryptoUseCase
+import com.harris.cryptoworld.domain.interactors.getallcrypto.GetAllCryptoUseCaseImpl
 import com.harris.cryptoworld.domain.repository.ICryptoRepository
 import dagger.Module
 import dagger.Provides
@@ -16,4 +18,10 @@ object DomainModule {
     @Provides
     fun provideGetAllCryptoUseCase(repository: ICryptoRepository) =
         GetAllCryptoUseCaseImpl(repository) as GetAllCryptoUseCase
+
+    @Singleton
+    @Provides
+    fun provideConvertCryptoUseCase(repository: ICryptoRepository) =
+        ConvertCryptoUseCaseImpl(repository) as ConvertCryptoUseCase
+
 }
