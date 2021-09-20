@@ -22,8 +22,8 @@ object DataModule {
 
     @Singleton
     @Provides
-    fun provideCryptoRepository(dataSource: CryptoDataSource, mapper: CryptoNetworkMapper) =
-        CryptoRepository(dataSource, mapper) as ICryptoRepository
+    fun provideCryptoRepository(dataSource: CryptoDataSource) =
+        CryptoRepository(dataSource) as ICryptoRepository
 
 
 }

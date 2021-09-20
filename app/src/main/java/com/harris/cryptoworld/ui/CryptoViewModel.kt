@@ -1,5 +1,6 @@
 package com.harris.cryptoworld.ui
 
+import android.accounts.NetworkErrorException
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,8 +10,6 @@ import com.harris.cryptoworld.domain.model.Crypto
 import com.harris.cryptoworld.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -25,27 +24,13 @@ class CryptoViewModel @Inject constructor(private val getAllCryptoUseCase: GetAl
         getAllCrypto()
     }
 
-    fun getAllCryptoCurrencies() = flow {
-        emit(UIState.LoadingState)
-        try {
-            delay(1000)
-            emit(UIState.DataState(getAllCryptoUseCase()))
-
-        } catch (e: Exception) {
-            Timber.e(e)
-            emit(Utils.resolveError(e))
-
-        }
-    }
-
-    fun getAllCrypto() {
+    private fun getAllCrypto() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 mliveData.postValue(UIState.LoadingState)
                 try {
-
                     mliveData.postValue(UIState.DataState(getAllCryptoUseCase()))
-                } catch (e: Exception) {
+                } catch (e: NetworkErrorException) {
                     Timber.e(e)
                     mliveData.postValue(Utils.resolveError(e))
 
