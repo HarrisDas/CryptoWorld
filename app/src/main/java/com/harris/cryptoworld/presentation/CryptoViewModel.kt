@@ -25,17 +25,13 @@ class CryptoViewModel @Inject constructor(
     ViewModel() {
     val cryptoList = MutableLiveData<UIState<List<Crypto>>>()
     val conversionError = MutableLiveData<UIState.ErrorState?>()
-    val crypto = MutableLiveData<Crypto>()
+    val currentCrypto = MutableLiveData<Crypto>()
     val convertedAmount = MutableLiveData(0.0)
     val enteredAmount = MutableLiveData(0.0)
-    val conversionRate = MutableLiveData(0.0)
-
-    init {
-        getAllCrypto()
-    }
+    val conversionRate = MutableLiveData(5.0)
 
     fun selectCrypto(crypto: Crypto) {
-        this.crypto.postValue(crypto)
+        this.currentCrypto.postValue(crypto)
     }
 
     fun onAmountChange(enteredAmount: String) {
@@ -43,12 +39,12 @@ class CryptoViewModel @Inject constructor(
         convertedAmount.postValue(conversionRate.value?.times(enteredAmount.toDouble()))
     }
 
-    private fun getAllCrypto() {
+    fun getAllCrypto() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 cryptoList.postValue(UIState.LoadingState)
                 try {
-                    cryptoList.postValue(UIState.DataState(getAllCryptoUseCase()))
+                    cryptoList.postValue(getAllCryptoUseCase.invoke())
                 } catch (e: NetworkErrorException) {
                     Timber.e(e)
                     cryptoList.postValue(Utils.resolveError(e))
@@ -58,18 +54,28 @@ class CryptoViewModel @Inject constructor(
         }
     }
 
-    private fun convertCrypto(from: String, to: String, amount: Double) {
+    fun convertCrypto(from: String, to: String, amount: Double) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 conversionError.postValue(null)
                 try {
-                    val conversion = convertCryptoUseCase(
+                    val state = convertCryptoUseCase(
                         from,
                         to,
                         amount
                     )
-                    convertedAmount.postValue(conversion.amount)
-                    conversionRate.postValue(conversion.rate)
+                    when (state) {
+                        is UIState.DataState -> {
+                            val conversion = state.data
+                            convertedAmount.postValue(conversion.amount)
+                            conversionRate.postValue(conversion.rate)
+
+                        }
+                        is UIState.ErrorState -> {
+                            conversionError.postValue(state)
+
+                        }
+                    }
                 } catch (e: NetworkErrorException) {
                     Timber.e(e)
                     conversionError.postValue(Utils.resolveError(e))
@@ -82,7 +88,7 @@ class CryptoViewModel @Inject constructor(
 
     fun onCurrencySelected(currency: String) {
         convertCrypto(
-            crypto.value?.name ?: "",
+            currentCrypto.value?.name ?: "",
             currency,
             enteredAmount.value?.toDouble() ?: 0.0
         )

@@ -48,7 +48,14 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllCrypto()
+
+    }
 }
+
 
 @Composable
 fun Greeting(name: String) {

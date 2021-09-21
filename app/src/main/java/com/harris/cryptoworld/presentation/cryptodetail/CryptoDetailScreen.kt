@@ -22,7 +22,7 @@ import com.harris.cryptoworld.presentation.ui.UIState
 @ExperimentalAnimationApi
 @Composable
 fun CryptoDetailScreen(viewModel: CryptoViewModel) {
-    val crypto by viewModel.crypto.observeAsState()
+    val crypto by viewModel.currentCrypto.observeAsState()
     val cryptoList by viewModel.cryptoList.observeAsState()
     val convertedAmount by viewModel.convertedAmount.observeAsState()
     val enteredAmount by viewModel.enteredAmount.observeAsState()

@@ -3,15 +3,15 @@ package com.harris.cryptoworld.domain.interactors.convertcrypto
 import android.accounts.NetworkErrorException
 import com.harris.cryptoworld.domain.model.CryptoConvert
 import com.harris.cryptoworld.domain.repository.ICryptoRepository
+import com.harris.cryptoworld.presentation.ui.UIState
 import javax.inject.Inject
 
 class ConvertCryptoUseCaseImpl @Inject constructor(private val repository: ICryptoRepository) :
     ConvertCryptoUseCase {
-    override suspend fun invoke(from: String, to: String, amount: Double): CryptoConvert {
+    override suspend fun invoke(from: String, to: String, amount: Double): UIState<CryptoConvert> {
         val convertCrypto = repository.convertCrypto(from, to, amount)
-        if (convertCrypto.success == true) {
-            return convertCrypto.toBean()
-        }
-        throw NetworkErrorException("Unable to convert! ${convertCrypto.error?.info ?: ""}")
+        return if (convertCrypto.success == true) {
+            UIState.DataState(convertCrypto.toBean())
+        } else UIState.ErrorState(NetworkErrorException("Unable to convert! ${convertCrypto.error?.info ?: ""}"))
     }
 }
