@@ -1,4 +1,4 @@
-package com.harris.cryptoworld.ui
+package com.harris.cryptoworld.presentation
 
 /**
  * A State class which will represent the state of UI

@@ -1,4 +1,4 @@
-package com.harris.cryptoworld.ui.theme
+package com.harris.cryptoworld.presentation.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

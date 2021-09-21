@@ -1,4 +1,4 @@
-package com.harris.cryptoworld.ui.theme
+package com.harris.cryptoworld.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
@@ -28,7 +28,7 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun MyGroceryShopTheme(
+fun CryptoWorldTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit
 ) {

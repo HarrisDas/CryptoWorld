@@ -14,8 +14,8 @@ class RemoteCrypto() {
     val name_full: String? = null
 
     @SerializedName("icon_url")
-    val icon_url: String? = null
+    val iconUrl: String? = null
 
-    fun toBean() = Crypto(name ?: "")
+    fun toBean() = Crypto(name ?: "", symbol ?: "",iconUrl?:"")
 
 }

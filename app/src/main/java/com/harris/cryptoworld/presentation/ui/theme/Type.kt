@@ -1,4 +1,4 @@
-package com.harris.cryptoworld.ui.theme
+package com.harris.cryptoworld.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
