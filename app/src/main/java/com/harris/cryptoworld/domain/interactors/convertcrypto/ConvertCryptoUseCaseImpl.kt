@@ -12,6 +12,6 @@ class ConvertCryptoUseCaseImpl @Inject constructor(private val repository: ICryp
         if (convertCrypto.success == true) {
             return convertCrypto.toBean()
         }
-        throw NetworkErrorException("Unable to convert!")
+        throw NetworkErrorException("Unable to convert! ${convertCrypto.error?.info ?: ""}")
     }
 }

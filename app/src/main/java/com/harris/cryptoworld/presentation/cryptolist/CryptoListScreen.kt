@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -20,9 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.harris.cryptoworld.presentation.CryptoViewModel
 import com.harris.cryptoworld.presentation.Screen
-import com.harris.cryptoworld.presentation.UIState
-import com.harris.cryptoworld.presentation.cryptolist.components.CryptoListItem
-import com.harris.cryptoworld.presentation.ui.theme.MediumGray
+import com.harris.cryptoworld.presentation.components.CryptoListItem
+import com.harris.cryptoworld.presentation.ui.UIState
 
 @Composable
 fun CryptoListScreen(
@@ -40,19 +38,14 @@ fun CryptoListScreen(
                     CryptoListItem(
                         crypto = crypto,
                         onItemClick = {
-//                            navController.navigate(Screen.CryptoListScreen.route + "/${crypto.name}")
+                            viewModel.selectCrypto(crypto = it)
+                            navController.navigate(Screen.CryptoDetailScreen.route)
                         }
                     )
-                    Divider(color = MediumGray, thickness = 0.5.dp)
-
                 }
             }
         }
         when (state) {
-
-//            is UIState.DataState -> {
-//
-//            }
             is UIState.ErrorState -> {
                 Text(
                     text = (state as UIState.ErrorState).exception.message ?: "Error",
