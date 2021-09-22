@@ -59,7 +59,7 @@ fun CryptoDetailScreen(viewModel: CryptoViewModel) {
 
                         value = enteredAmount.toString(),
                         onValueChange = { query ->
-                            viewModel.onAmountChange(query)
+                            viewModel.onAmountChange(query.toDouble(), conversionRate)
                         },
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Number

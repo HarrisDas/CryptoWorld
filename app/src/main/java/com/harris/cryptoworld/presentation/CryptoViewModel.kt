@@ -26,17 +26,17 @@ class CryptoViewModel @Inject constructor(
     val cryptoList = MutableLiveData<UIState<List<Crypto>>>()
     val conversionError = MutableLiveData<UIState.ErrorState?>()
     val currentCrypto = MutableLiveData<Crypto>()
-    val convertedAmount = MutableLiveData(0.0)
     val enteredAmount = MutableLiveData(0.0)
-    val conversionRate = MutableLiveData(5.0)
+    val convertedAmount = MutableLiveData(0.0)
+    val conversionRate = MutableLiveData(0.0)
 
     fun selectCrypto(crypto: Crypto) {
         this.currentCrypto.postValue(crypto)
     }
 
-    fun onAmountChange(enteredAmount: String) {
-        this.enteredAmount.postValue(enteredAmount.toDouble())
-        convertedAmount.postValue(conversionRate.value?.times(enteredAmount.toDouble()))
+    fun onAmountChange(enteredAmount: Double?, conversionRate: Double?) {
+        this@CryptoViewModel.enteredAmount.postValue(enteredAmount)
+        convertedAmount.postValue(conversionRate?.times(enteredAmount ?: 0.0))
     }
 
     fun getAllCrypto() {

@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 class CryptoListResponse : ApiResponse() {
     @SerializedName("crypto")
-    val crypto: Map<String, RemoteCrypto>? = null
+    var crypto: Map<String, RemoteCrypto>? = null
 }

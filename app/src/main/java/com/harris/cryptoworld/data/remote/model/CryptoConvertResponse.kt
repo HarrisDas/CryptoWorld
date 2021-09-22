@@ -6,16 +6,16 @@ import com.harris.cryptoworld.domain.model.CryptoConvert
 class CryptoConvertResponse : ApiResponse() {
 
     @SerializedName("info")
-    val info: CryptoConvertInfo? = null
+    var info: CryptoConvertInfo? = null
 
     @SerializedName("result")
-    val result: Double = 0.0
+    var result: Double = 0.0
 
     fun toBean() = CryptoConvert(result, info?.rate ?: 0.0)
 }
 
 class CryptoConvertInfo {
     @SerializedName("rate")
-    val rate: Double = 0.0
+    var rate: Double = 0.0
 
 }

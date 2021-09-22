@@ -5,16 +5,16 @@ import com.harris.cryptoworld.domain.model.Crypto
 
 class RemoteCrypto() {
     @SerializedName("name")
-    val name: String? = null
+    var name: String? = null
 
     @SerializedName("symbol")
-    val symbol: String? = null
+    var symbol: String? = null
 
     @SerializedName("name_full")
-    val name_full: String? = null
+    var name_full: String? = null
 
     @SerializedName("icon_url")
-    val iconUrl: String? = null
+    var iconUrl: String? = null
 
     fun toBean() = Crypto(name ?: "", symbol ?: "",iconUrl?:"")
 
