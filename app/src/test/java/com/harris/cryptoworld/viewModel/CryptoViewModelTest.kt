@@ -139,7 +139,7 @@ class CryptoViewModelTest {
     @Test
     fun `test on Amount change`() = coroutineTestRule.runBlockingTest {
 
-        viewModel.onAmountChange(1.0, 1.0)
+        viewModel.onAmountChange("1.0", 1.0)
         verifySequence {
             convertedAmountObserver.onChanged(0.0)
             enteredAmountObserver.onChanged(0.0)

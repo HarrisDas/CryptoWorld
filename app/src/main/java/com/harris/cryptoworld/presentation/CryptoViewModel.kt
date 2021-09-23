@@ -34,9 +34,12 @@ class CryptoViewModel @Inject constructor(
         this.currentCrypto.postValue(crypto)
     }
 
-    fun onAmountChange(enteredAmount: Double?, conversionRate: Double?) {
-        this@CryptoViewModel.enteredAmount.postValue(enteredAmount)
-        convertedAmount.postValue(conversionRate?.times(enteredAmount ?: 0.0))
+    fun onAmountChange(enteredAmount: String, conversionRate: Double?) {
+        val validate = enteredAmount.toDoubleOrNull()
+        validate?.let {
+            this@CryptoViewModel.enteredAmount.postValue(validate)
+            convertedAmount.postValue(conversionRate?.times(validate))
+        }
     }
 
     fun getAllCrypto() {
