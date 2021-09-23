@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshState
 import com.harris.cryptoworld.presentation.CryptoViewModel
 import com.harris.cryptoworld.presentation.Screen
 import com.harris.cryptoworld.presentation.components.CryptoListItem
@@ -30,38 +32,39 @@ fun CryptoListScreen(
     val state by viewModel.cryptoList.observeAsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
+        SwipeRefresh(state = SwipeRefreshState(false), onRefresh = { viewModel.getAllCrypto() }) {
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                (state as? UIState.DataState)?.data?.let {
 
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            (state as? UIState.DataState)?.data?.let {
-
-                items(it) { crypto ->
-                    CryptoListItem(
-                        crypto = crypto,
-                        onItemClick = {
-                            viewModel.selectCrypto(crypto = it)
-                            navController.navigate(Screen.CryptoDetailScreen.route)
-                        }
-                    )
+                    items(it) { crypto ->
+                        CryptoListItem(
+                            crypto = crypto,
+                            onItemClick = {
+                                viewModel.selectCrypto(crypto = it)
+                                navController.navigate(Screen.CryptoDetailScreen.route)
+                            }
+                        )
+                    }
                 }
             }
-        }
-        when (state) {
-            is UIState.ErrorState -> {
-                Text(
-                    text = (state as UIState.ErrorState).exception.message ?: "Error",
-                    color = MaterialTheme.colors.error,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp)
-                        .align(Alignment.Center)
+            when (state) {
+                is UIState.ErrorState -> {
+                    Text(
+                        text = (state as UIState.ErrorState).exception.message ?: "Error",
+                        color = MaterialTheme.colors.error,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp)
+                            .align(Alignment.Center)
 
-                )
+                    )
 
-            }
-            is UIState.LoadingState -> {
-                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                }
+                is UIState.LoadingState -> {
+                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
 
+                }
             }
         }
 

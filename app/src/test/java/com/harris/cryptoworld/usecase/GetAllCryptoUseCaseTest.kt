@@ -39,7 +39,7 @@ class GetAllCryptoUseCaseTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this, relaxUnitFun = true)
-        useCase = GetAllCryptoUseCaseImpl(repository)
+        useCase = GetAllCryptoUseCaseImpl(repository, NetworkUtils(context))
     }
 
     @Test
