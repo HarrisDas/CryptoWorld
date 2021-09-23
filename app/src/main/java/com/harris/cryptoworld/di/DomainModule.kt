@@ -1,10 +1,11 @@
 package com.harris.cryptoworld.di
 
 import android.content.Context
-import com.harris.cryptoworld.domain.interactors.convertcrypto.ConvertCryptoUseCase
+import com.harris.cryptoworld.BuildConfig
 import com.harris.cryptoworld.domain.interactors.convertcrypto.ConvertCryptoUseCaseImpl
-import com.harris.cryptoworld.domain.interactors.getallcrypto.GetAllCryptoUseCase
+import com.harris.cryptoworld.domain.interactors.convertcrypto.MockConvertCryptoUseCaseImpl
 import com.harris.cryptoworld.domain.interactors.getallcrypto.GetAllCryptoUseCaseImpl
+import com.harris.cryptoworld.domain.interactors.getallcrypto.MockGetAllCryptoUseCaseImpl
 import com.harris.cryptoworld.domain.repository.ICryptoRepository
 import com.harris.cryptoworld.utils.NetworkUtils
 import dagger.Module
@@ -23,13 +24,19 @@ object DomainModule {
         repository: ICryptoRepository,
         @ApplicationContext context: Context
     ) =
-        GetAllCryptoUseCaseImpl(repository, NetworkUtils(context)) as GetAllCryptoUseCase
+        (if (BuildConfig.Mock) MockGetAllCryptoUseCaseImpl()
+        else GetAllCryptoUseCaseImpl(repository, NetworkUtils(context)))
 
     @Singleton
     @Provides
     fun provideConvertCryptoUseCase(
         repository: ICryptoRepository,
         @ApplicationContext context: Context
-    ) = ConvertCryptoUseCaseImpl(repository, NetworkUtils(context)) as ConvertCryptoUseCase
+    ) = (if (BuildConfig.Mock) MockConvertCryptoUseCaseImpl()
+    else ConvertCryptoUseCaseImpl(
+        repository,
+        NetworkUtils(context)
+    ))
+
 
 }

@@ -54,6 +54,7 @@ android {
     }
     buildTypes.each {
         it.buildConfigField 'String', 'API_KEY', '"cryptoApiKey"'
+        it.buildConfigField 'boolean', 'Mock', 'true'
     }
 
 
