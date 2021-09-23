@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": 400,
+    "info": "api error"
+  }
+}
