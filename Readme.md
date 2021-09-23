@@ -1,7 +1,7 @@
 <h1 align="center">CryptoWorld</h1>
 
 <p align="center">
-CryptoWorld is a demo app which Jetpack Compose. The app uses modern tech-stack and it is based on Clean Architecture.
+CryptoWorld is a demo app based on Jetpack Compose. The app uses modern tech-stack and it is based on Clean Architecture.
 The project is quite simple which shows the list of crypto currencies and gives a functionality of conversion with another crypto currency
 </p>
 </br>
